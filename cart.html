@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Your Cart</title>
+<link rel="stylesheet" href="pro.css">
+
+<style>
+body {
+    background: #f4f4f4;
+    font-family: Arial;
+}
+
+.cart-page {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    animation: fadeIn 0.4s ease;
+}
+
+.cart-item span {
+    font-size: 18px;
+}
+
+.cart-item button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cart-item button:hover {
+    background: darkred;
+}
+
+.total-box {
+    background: black;
+    color: white;
+    padding: 20px;
+    font-size: 22px;
+    text-align: right;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(10px);}
+    to {opacity:1; transform:translateY(0);}
+}
+.order-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.order-btn {
+    background: green;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.order-btn:hover {
+    transform: scale(1.05);
+    background: darkgreen;
+}
+
+.cancel-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.cancel-btn:hover {
+    transform: scale(1.05);
+    background: darkred;
+}
+
+#orderMessage {
+    margin-top: 20px;
+    font-size: 22px;
+    text-align: center;
+    font-weight: bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1 style="text-align:center;">🛒 Your Cart</h1>
+
+<div class="cart-page" id="cartItems"></div>
+
+<div class="total-box" id="totalPrice"></div>
+<div class="order-actions">
+    <button class="order-btn" onclick="placeOrder()">Order Now</button>
+    <button class="cancel-btn" onclick="cancelOrder()">Cancel Order</button>
+</div>
+
+<div id="orderMessage"></div>
+<button onclick="placeOrder()">Place Order</button>
+
+
+
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let container = document.getElementById("cartItems");
+let total = 0;
+
+cart.forEach((item, index) => {
+    let price = parseInt(item.price.replace("₹","").replace(",",""));
+    total += price;
+
+    let div = document.createElement("div");
+    div.className = "cart-item";
+    div.innerHTML = `
+        <span>${item.name}</span>
+        <span>₹${price}</span>
+        <button onclick="removeItem(${index})">Remove</button>
+    `;
+    container.appendChild(div);
+});
+
+document.getElementById("totalPrice").innerText = "Total: ₹" + total;
+
+function removeItem(index){
+    cart.splice(index,1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    location.reload();
+}
+
+function placeOrder() {
+    document.getElementById("orderMessage").innerHTML =
+        "✅ Order Successful!";
+    document.getElementById("orderMessage").style.color = "green";
+
+    // Clear cart after order
+    localStorage.removeItem("cart");
+}
+
+function cancelOrder() {
+    document.getElementById("orderMessage").innerHTML =
+        "❌ Order Cancelled Successfully!";
+    document.getElementById("orderMessage").style.color = "red";
+
+    // Clear cart after cancel
+    localStorage.removeItem("cart");
+}
+
+
+</script>
+
+</body>
+</html>

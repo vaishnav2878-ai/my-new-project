@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Orders</title>
+<link rel="stylesheet" href="pro.css">
+</head>
+
+<body>
+
+<h1 style="text-align:center;">My Orders</h1>
+
+<div id="orderContainer" class="product-grid"></div>
+
+<script>
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+let container = document.getElementById("orderContainer");
+
+if (orders.length === 0) {
+  container.innerHTML = "<p style='text-align:center;'>No orders yet</p>";
+} else {
+  orders.forEach(item => {
+    container.innerHTML += `
+      <div class="product-card">
+        <img src="${item.image}">
+        <div class="product-info">
+          <h3>${item.name}</h3>
+          <p>Price: ${item.price}</p>
+        </div>
+      </div>
+    `;
+  });
+}
+</script>
+
+</body>
+</html>
