@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Playfair+Display:wght@400..900&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="pro.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/2535/2535658.png" alt="Fashion Logo">
+        <span>Fashion Store</span>
+    </div>
+
+    <div class="menu-toggle" onclick="toggleMenu()">⋮</div>
+
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#products">Collection</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="order.html">Orders</a></li>
+
+
+        <li class="icon-item">
+            <a href="cart.html" id="cartBtn">
+    <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png">
+    Cart (<span id="cartCount">0</span>)
+</a>
+
+        </li>
+        <li class="search-box">
+    <input type="text" id="searchInput" placeholder="Search products...">
+</li>
+
+
+        <li class="icon-item">
+            <a href="#" onclick="openLogin()">
+                <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png" alt="Login">
+                Login
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<!-- TAGLINE -->
+<div class="tagline">
+    <h1>
+        <span class="t1">Where</span>
+        <span class="t2">style</span>
+        <span class="t3">speaks,</span>
+        <span class="t4">trends</span>
+        <span class="t5">resonate,</span>
+        <span class="t6">fashion</span>
+        <span class="t7">flourishes</span>
+    </h1>
+</div>
+<div id="noResult">❌ Out of Stock / Item Not Found</div>
+
+
+<!-- PRODUCTS SECTION -->
+<section class="products-section" id="products">
+    <h2 class="section-title">Men's Collection</h2>
+
+    <!-- DENIM SHIRTS -->
+    <h3 class="category-title">Denim Shirts</h3>
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\portrait-handsome-smiling-stylish-young-man-model-dressed-jeans-clothes-fashion-man-wearing-sunglasses.jpg" alt="Denim Shirt" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Classic Blue Denim Shirt</div>
+                <div class="product-details">Sizes: S, M, L, XL, XXL</div>
+                <div class="product-price">₹1,499</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\young-handsome-man-wearing-jeans-jaket-studio.jpg" alt="Light Denim Shirt" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Light Wash Denim Shirt</div>
+                <div class="product-details">Sizes: S, M, L, XL, XXL</div>
+                <div class="product-price">₹1,299</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\african-american-man-wearing-denim-long-sleeve-shirt.jpg" alt="Dark Denim Shirt" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Dark Indigo Denim Shirt</div>
+                <div class="product-details">Sizes: S, M, L, XL, XXL</div>
+                <div class="product-price">₹1,699</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JEANS -->
+    <h3 class="category-title">Jeans</h3>
+    <div class="product-grid">
+        <div class="product-card">
+         <img src="https://images.pexels.com/photos/1598507/pexels-photo-1598507.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Blue Jeans" class="product-image">
+
+            <div class="product-info">
+                <div class="product-name">Slim Fit Blue Jeans</div>
+                <div class="product-details">Sizes: 28, 30, 32, 34, 36, 38</div>
+                <div class="product-price">₹1,999</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+        <img src="C:\Users\DELL\Downloads\non-binary-person-posing-metallic-fence.jpg" alt="Black Jeans" class="product-image">
+
+            <div class="product-info">
+                <div class="product-name">Classic Black Jeans</div>
+                <div class="product-details">Sizes: 28, 30, 32, 34, 36, 38</div>
+                <div class="product-price">₹2,199</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\urban-outdoor-fashion-portrait-young-stylish-hipster-man-wearing-leather-biker-jacket-denim-pants-vintage-shoes-posing-countryside-parking-evening-sunlight.jpg" alt="Light Jeans" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Light Blue Relaxed Fit</div>
+                <div class="product-details">Sizes: 28, 30, 32, 34, 36, 38</div>
+                <div class="product-price">₹1,799</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JACKETS -->
+    <h3 class="category-title">Jackets</h3>
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\skeptical-doubtful-guy-black-leather-jacket-shrugging-while-pointing-upper-right-corner-promo-offer-standing.jpg"alt="Black Jacket" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Black Leather Jacket</div>
+                <div class="product-details">Sizes: S, M, L, XL</div>
+                <div class="product-price">₹3,999</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\man-with-his-bicycle-indoors.jpg" alt="Blue Jacket" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Navy Blue Bomber Jacket</div>
+                <div class="product-details">Sizes: S, M, L, XL</div>
+                <div class="product-price">₹2,999</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src= alt="Brown Jacket" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Brown Suede Jacket</div>
+                <div class="product-details">Sizes: S, M, L, XL</div>
+                <div class="product-price">₹3,499</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\young-hipster-man-hiking-mountains-winter-vacation-traveling.jpg" alt="Green Jacket" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Olive Green Windbreaker</div>
+                <div class="product-details">Sizes: S, M, L, XL</div>
+                <div class="product-price">₹2,499</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- T-SHIRTS -->
+    <h3 class="category-title">T-Shirts</h3>
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\white-flower-with-yellow-center-is-reflected-reflective-surface.jpg" alt="White T-Shirt" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Classic White T-Shirt</div>
+                <div class="product-details">Sizes: S, M, L, XL, XXL</div>
+                <div class="product-price">₹499</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\pleased-young-handsome-guy-wearing-black-t-shirt-showing-thumbs-up-isolated-purple-wall.jpg" alt="Black T-Shirt" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Black Crew Neck T-Shirt</div>
+                <div class="product-details">Sizes: S, M, L, XL, XXL</div>
+                <div class="product-price">₹499</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\istockphoto-462914345-1024x1024.jpg" alt="Grey T-Shirt" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Heather Grey V-Neck</div>
+                <div class="product-details">Sizes: S, M, L, XL, XXL</div>
+                <div class="product-price">₹549</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORMAL PANTS -->
+    <h3 class="category-title">Formal Pants</h3>
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\istockphoto-2225453472-1024x1024.jpg" alt="Black Formal Pants" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Black Formal Trousers</div>
+                <div class="product-details">Sizes: 28, 30, 32, 34, 36, 38</div>
+                <div class="product-price">₹1,799</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\istockphoto-1032564422-1024x1024.jpg" alt="Navy Formal Pants" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Navy Blue Dress Pants</div>
+                <div class="product-details">Sizes: 28, 30, 32, 34, 36, 38</div>
+                <div class="product-price">₹1,899</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.pexels.com/photos/2866077/pexels-photo-2866077.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Grey Formal Pants" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Charcoal Grey Slacks</div>
+                <div class="product-details">Sizes: 28, 30, 32, 34, 36, 38</div>
+                <div class="product-price">₹1,699</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHORTS -->
+    <h3 class="category-title">Shorts</h3>
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\istockphoto-156874059-1024x1024.jpg" alt="Khaki Shorts" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Khaki Cargo Shorts</div>
+                <div class="product-details">Sizes: 28, 30, 32, 34, 36</div>
+                <div class="product-price">₹999</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\istockphoto-1068705632-1024x1024.jpg" alt="Blue Shorts" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Denim Blue Shorts</div>
+                <div class="product-details">Sizes: 28, 30, 32, 34, 36</div>
+                <div class="product-price">₹899</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="C:\Users\DELL\Downloads\istockphoto-1045408520-1024x1024.jpg" alt="Black Shorts" class="product-image">
+            <div class="product-info">
+                <div class="product-name">Black Athletic Shorts</div>
+                <div class="product-details">Sizes: 28, 30, 32, 34, 36</div>
+                <div class="product-price">₹799</div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LOGIN MODAL -->
+<div class="login-modal" id="loginModal">
+    <div class="login-box">
+        <h2>Login</h2>
+
+        <form id="loginForm">
+            <input type="text" placeholder="Enter Name" required>
+            <input type="tel" placeholder="Mobile Number" required>
+            <input type="password" placeholder="Password" required>
+
+            <button type="submit">Submit</button>
+            <button type="button" class="close-btn" onclick="closeLogin()">Close</button>
+        </form>
+    </div>
+</div>
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-content">
+        <p>© 2026 Fashion Store. All Rights Reserved.</p>
+            <p>Contact: <a href="mailto:vaishnav2878@gmail.com">vaishnav2878@gmail.com</a></p>
+
+
+        <div class="social-icons">
+            <a href="#" class="instagram" title="Instagram">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+            </a>
+
+            <a href="#" class="twitter" title="Twitter">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+            </a>
+
+            <a href="#" class="whatsapp" title="WhatsApp">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+            </a>
+        </div>
+    </div>
+</footer>
+
+
+<!-- JS -->
+<script src="pro.js"></script>
+</body>
+</html>
