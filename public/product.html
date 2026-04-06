@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Product Details</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.product-page{
+display:flex;
+gap:60px;
+padding:60px;
+font-family:'Poppins',sans-serif;
+}
+
+.product-image img{
+width:100%;
+max-width:400px;
+height:400px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.product-info h2{
+color:#b88b5a;
+margin-bottom:10px;
+}
+
+.price{
+font-size:22px;
+font-weight:600;
+margin:10px 0;
+}
+
+.size-box{
+display:flex;
+gap:10px;
+margin:15px 0;
+}
+
+.size{
+width:40px;
+height:40px;
+border-radius:50%;
+border:1px solid #ccc;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
+
+.size:hover{
+background:#b88b5a;
+color:white;
+}
+
+.cart-row{
+display:flex;
+align-items:center;
+gap:15px;
+margin-top:20px;
+}
+
+.add-cart{
+background:#b88b5a;
+border:none;
+padding:10px 25px;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+.heart{
+font-size:24px;
+cursor:pointer;
+}
+
+.size.active{
+background:#b88b5a;
+color:white;
+border-color:#b88b5a;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="product-page">
+
+<div class="product-image">
+<img id="productImage" alt="Product Image">
+</div>
+
+<div class="product-info">
+
+<h2 id="productName"></h2>
+
+<p class="price" id="productPrice"></p>
+
+<p id="productDescription"></p>
+
+<p>Select Size</p>
+
+<div class="size-box">
+<div class="size" onclick="selectSize(this)">S</div>
+<div class="size" onclick="selectSize(this)">M</div>
+<div class="size" onclick="selectSize(this)">L</div>
+</div>
+
+<div class="cart-row">
+<button class="add-cart" onclick="addToCart()">Add To Cart</button>
+<span class="heart">♡</span>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+let product = null;
+let selectedSize = "";
+
+// ==========================
+// Load product
+// ==========================
+
+async function loadProduct(){
+
+if(!id){
+document.body.innerHTML = "<h2>Product ID missing</h2>";
+return;
+}
+
+try{
+
+const response = await fetch(`/api/products/${id}`);
+const data = await response.json();
+
+if(!response.ok){
+document.body.innerHTML = "<h2>Product not found</h2>";
+return;
+}
+
+product = data;
+
+document.getElementById("productName").innerText = product.name;
+document.getElementById("productPrice").innerText = "₹" + product.price;
+document.getElementById("productDescription").innerText = product.description || "";
+
+document.getElementById("productImage").src = "/uploads/" + product.image;
+
+}
+catch(error){
+
+console.log("Error loading product:",error);
+document.body.innerHTML = "<h2>Server error while loading product</h2>";
+
+}
+
+}
+
+loadProduct();
+
+// ==========================
+// Select Size
+// ==========================
+
+function selectSize(el){
+
+document.querySelectorAll(".size").forEach(size=>{
+size.classList.remove("active");
+});
+
+el.classList.add("active");
+
+selectedSize = el.innerText;
+
+}
+
+// ==========================
+// Add To Cart
+// ==========================
+
+function addToCart(){
+
+if(!product){
+alert("Product not loaded");
+return;
+}
+
+if(!selectedSize){
+alert("Please select size");
+return;
+}
+
+const item = {
+
+id:product._id,
+name:product.name,
+price:product.price,
+image:"/uploads/"+product.image,
+size:selectedSize,
+quantity:1
+
+};
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+cart.push(item);
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+alert("Item added to cart");
+
+}
+
+</script>
+
+</body>
+</html>

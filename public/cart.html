@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cart - E-Kart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#f8f6f2;
+      margin:0;
+      padding:0;
+    }
+
+    .cart-title{
+      text-align:center;
+      color:#b88b5a;
+      margin-top:40px;
+      font-size:30px;
+      font-weight:600;
+    }
+
+    .cart-layout{
+      width:80%;
+      margin:40px auto;
+      display:flex;
+      gap:40px;
+      align-items:flex-start;
+    }
+
+    .cart-left{
+      flex:1;
+    }
+
+    .cart-item{
+      display:flex;
+      align-items:center;
+      gap:20px;
+      background:white;
+      padding:15px;
+      border-radius:10px;
+      margin-bottom:15px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .cart-item img{
+      width:120px;
+      height:120px;
+      object-fit:cover;
+      border-radius:8px;
+    }
+
+    .item-info h3{
+      margin:0;
+      color:#b88b5a;
+      font-weight:600;
+      font-size:20px;
+    }
+
+    .item-info p{
+      margin:5px 0;
+      color:#555;
+    }
+
+    .remove-btn{
+      background:#b88b5a;
+      color:white;
+      border:none;
+      padding:6px 12px;
+      border-radius:5px;
+      cursor:pointer;
+      margin-top:5px;
+    }
+
+    .remove-btn:hover{
+      background:#a07445;
+    }
+
+    .price-box{
+      width:320px;
+      background:white;
+      padding:18px;
+      border-radius:10px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.08);
+      border:1px solid #eee;
+      position:sticky;
+      top:100px;
+    }
+
+    .price-title{
+      font-size:16px;
+      color:#878787;
+      font-weight:600;
+      margin-bottom:12px;
+    }
+
+    .price-row{
+      display:flex;
+      justify-content:space-between;
+      margin:10px 0;
+      font-size:14px;
+      color:#333;
+    }
+
+    .discount{
+      color:green;
+    }
+
+    .total{
+      font-size:17px;
+      font-weight:600;
+    }
+
+    .saved{
+      color:green;
+      font-size:13px;
+      margin-top:8px;
+    }
+
+    .order-box{
+      margin-top:15px;
+      border:1px solid #eee;
+      padding:12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-radius:6px;
+    }
+
+    .final-price{
+      font-size:18px;
+      font-weight:600;
+    }
+
+    .order-btn{
+      background:#fb641b;
+      color:white;
+      border:none;
+      padding:8px 18px;
+      border-radius:4px;
+      cursor:pointer;
+      font-size:14px;
+    }
+
+    .order-btn:hover{
+      background:#e85c0d;
+    }
+
+    .trust-box{
+      margin-top:18px;
+      border-top:1px solid #eee;
+      padding-top:12px;
+    }
+
+    .trust-item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:#878787;
+      font-size:13px;
+      margin:8px 0;
+    }
+
+    .trust-item i{
+      color:#878787;
+      font-size:14px;
+    }
+
+    .empty-cart{
+      background:white;
+      padding:30px;
+      border-radius:10px;
+      text-align:center;
+      box-shadow:0 3px 10px rgba(0,0,0,0.08);
+      color:#666;
+      font-size:18px;
+    }
+
+    @media (max-width: 900px){
+      .cart-layout{
+        width:90%;
+        flex-direction:column;
+      }
+
+      .price-box{
+        width:100%;
+        position:static;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2 class="cart-title">Your Cart</h2>
+
+  <div class="cart-layout">
+
+    <div class="cart-left">
+      <div id="cartItems"></div>
+    </div>
+
+    <div class="price-box">
+
+      <h3 class="price-title">PRICE DETAILS</h3>
+
+      <div class="price-row">
+        <span>Price (Items)</span>
+        <span>₹<span id="priceValue">0</span></span>
+      </div>
+
+      <div class="price-row">
+        <span>Discount</span>
+        <span class="discount">-₹<span id="discountValue">0</span></span>
+      </div>
+
+      <div class="price-row">
+        <span>Platform Fee</span>
+        <span>₹<span id="feeValue">10</span></span>
+      </div>
+
+      <hr>
+
+      <div class="price-row total">
+        <span>Total Amount</span>
+        <span>₹<span id="finalTotal">0</span></span>
+      </div>
+
+      <div class="saved">
+        You will save ₹<span id="savedValue">0</span> on this order
+      </div>
+
+      <div class="order-box">
+        <span class="final-price">₹<span id="orderPrice">0</span></span>
+        <button class="order-btn" onclick="placeOrder()">Place Order</button>
+      </div>
+
+      <div class="trust-box">
+        <div class="trust-item">
+          <i class="fa-solid fa-lock"></i>
+          <span>Safe and Secure Payments</span>
+        </div>
+
+        <div class="trust-item">
+          <i class="fa-solid fa-rotate-left"></i>
+          <span>Easy Returns</span>
+        </div>
+
+        <div class="trust-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>100% Authentic Products</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const container = document.getElementById("cartItems");
+    let total = 0;
+
+    function getPriceNumber(price) {
+      if (typeof price === "number") {
+        return price;
+      }
+
+      if (typeof price === "string") {
+        return parseInt(price.replace("₹", "").replace(/,/g, "").trim()) || 0;
+      }
+
+      return 0;
+    }
+
+    function getImagePath(image) {
+      if (!image) return "https://via.placeholder.com/120x120?text=No+Image";
+
+      if (image.startsWith("http")) return image;
+
+      if (image.startsWith("/uploads/")) return image;
+
+      if (image.startsWith("uploads/")) return "/" + image;
+
+      return "/uploads/" + image;
+    }
+
+    function displayCart() {
+      container.innerHTML = "";
+      total = 0;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="empty-cart">
+            Your cart is empty 🛒
+          </div>
+        `;
+
+        updatePriceBox(0);
+        return;
+      }
+
+      cart.forEach((item, index) => {
+        let priceNumber = getPriceNumber(item.price);
+        total += priceNumber;
+
+        container.innerHTML += `
+          <div class="cart-item">
+            <img src="${getImagePath(item.image)}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/120x120?text=No+Image'">
+            <div class="item-info">
+              <h3>${item.name || "Product"}</h3>
+              <p>₹${priceNumber}</p>
+              <p>Size: ${item.size || "-"}</p>
+              <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+            </div>
+          </div>
+        `;
+      });
+
+      updatePriceBox(total);
+    }
+
+    function updatePriceBox(totalAmount) {
+      let discount = Math.floor(totalAmount * 0.1);
+      let platformFee = totalAmount > 0 ? 10 : 0;
+      let finalAmount = totalAmount - discount + platformFee;
+
+      document.getElementById("priceValue").innerText = totalAmount;
+      document.getElementById("discountValue").innerText = discount;
+      document.getElementById("feeValue").innerText = platformFee;
+      document.getElementById("finalTotal").innerText = finalAmount;
+      document.getElementById("savedValue").innerText = discount;
+      document.getElementById("orderPrice").innerText = finalAmount;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      displayCart();
+    }
+
+    function placeOrder() {
+      const user = localStorage.getItem("loggedInUser");
+
+      if (!user) {
+        alert("Please login before placing an order");
+        window.location.href = "account.html";
+        return;
+      }
+
+      if (cart.length === 0) {
+        alert("Your cart is empty");
+        return;
+      }
+
+      localStorage.setItem("checkoutItems", JSON.stringify(cart));
+      window.location.href = "orders.html";
+    }
+
+    displayCart();
+  </script>
+
+</body>
+</html>

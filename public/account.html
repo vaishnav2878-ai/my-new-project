@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Account - E-Kart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .account-container{
+      display:flex;
+      justify-content:center;
+      gap:80px;
+      padding:60px;
+      background:#f8f6f2;
+      font-family:'Poppins',sans-serif;
+      flex-wrap:wrap;
+    }
+
+    .form-box{
+      width:350px;
+      background:white;
+      padding:30px;
+      border-radius:8px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    h2{
+      margin-bottom:20px;
+      font-weight:600;
+    }
+
+    label{
+      font-size:14px;
+      font-weight:500;
+    }
+
+    input{
+      width:100%;
+      padding:10px;
+      margin:8px 0 18px;
+      border-radius:6px;
+      border:1px solid #ccc;
+      outline:none;
+    }
+
+    input:focus{
+      border-color:#b88b5a;
+      box-shadow:0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .remember{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:15px;
+      font-size:14px;
+    }
+
+    button{
+      width:100%;
+      padding:10px;
+      background:#b88b5a;
+      border:none;
+      color:white;
+      border-radius:6px;
+      font-weight:500;
+      cursor:pointer;
+      margin-bottom:15px;
+    }
+
+    button:hover{
+      background:#a07445;
+    }
+
+    .small-text{
+      font-size:13px;
+      color:#555;
+      margin-bottom:15px;
+    }
+
+    a{
+      font-size:13px;
+      text-decoration:none;
+      color:#b88b5a;
+    }
+
+    @media(max-width:768px){
+      .account-container{
+        flex-direction:column;
+        align-items:center;
+      }
+    }
+    
+/* your existing CSS above */
+
+
+/* FORGOT PASSWORD POPUP */
+.forgot-box{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  justify-content:center;
+  align-items:center;
+}
+
+.forgot-content{
+  background:white;
+  padding:30px;
+  width:300px;
+  border-radius:10px;
+  text-align:center;
+  position:relative;
+}
+
+.forgot-content input{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border:1px solid #ccc;
+  border-radius:5px;
+}
+
+.close{
+  position:absolute;
+  right:10px;
+  top:5px;
+  cursor:pointer;
+  font-size:18px;
+}
+
+  </style>
+</head>
+
+<body>
+
+<div class="account-container">
+
+  <!-- LOGIN SECTION -->
+  <div class="form-box">
+
+    <h2>My Account Login</h2>
+
+    <form id="loginForm">
+
+      <label>Username or email address *</label>
+      <input type="text" id="loginUser" required>
+
+      <label>Password *</label>
+      <input type="password" id="loginPass" required>
+
+      <div class="remember">
+        <input type="checkbox">
+        <span>Remember me</span>
+      </div>
+
+      <button type="submit">Login</button>
+
+<a href="#" onclick="openForgot()">Lost your password?</a>
+    </form>
+
+  </div>
+
+
+  <!-- REGISTER SECTION -->
+  <div class="form-box">
+
+    <h2>Register</h2>
+
+    <form id="registerForm">
+
+      <label>Username *</label>
+      <input type="text" id="username" required>
+
+      <label>Email address *</label>
+      <input type="email" id="email" required>
+
+      <label>Password *</label>
+      <input type="password" id="password" required>
+
+      <p class="small-text">
+        A link to set a new password will be sent to your email address.
+      </p>
+
+      <p class="small-text">
+        Your personal data will be used to support your experience throughout this website.
+      </p>
+
+      <button type="submit">Register</button>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- FORGOT PASSWORD POPUP -->
+
+<div id="forgotBox" class="forgot-box">
+
+  <div class="forgot-content">
+
+    <h3>Reset Password</h3>
+
+    <input type="text" id="forgotUser" placeholder="Enter Username">
+
+    <button onclick="sendOTP()">Send OTP</button>
+
+    <div id="otpSection" style="display:none; margin-top:10px;">
+      <input type="text" id="otpInput" placeholder="Enter OTP">
+      <button onclick="verifyOTP()">Verify OTP</button>
+    </div>
+
+    <span class="close" onclick="closeForgot()">✖</span>
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+
+
+
+
+// REGISTER
+document.getElementById("registerForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  const username = document.getElementById("username").value;
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+
+  const res = await fetch("/api/auth/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ username, email, password })
+  });
+
+  const data = await res.json();
+
+  alert(data.message);
+
+  if(data.message === "User registered successfully"){
+      window.location.href = "index.html";  // redirect to home page
+  }
+
+});
+
+
+
+// LOGIN
+document.getElementById("loginForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  const username = document.getElementById("loginUser").value;
+  const password = document.getElementById("loginPass").value;
+
+  const res = await fetch("/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ username, password })
+  });
+
+  const data = await res.json();
+  alert(data.message);
+
+  if(data.message === "Login successful"){
+    localStorage.setItem("loggedInUser", username);
+    window.location.href="index.html";
+  }
+});
+function openForgot(){
+  document.getElementById("forgotBox").style.display="flex";
+}
+
+function closeForgot(){
+  document.getElementById("forgotBox").style.display="none";
+}
+
+function sendOTP(){
+  alert("OTP sent to your email (demo)");
+  document.getElementById("otpSection").style.display="block";
+}
+
+function verifyOTP(){
+  alert("OTP verified (demo)");
+}
+</script>
+</body>
+</html>

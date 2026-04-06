@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkout - E-Kart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#f1f3f6;
+      margin:0;
+    }
+
+    /* NAVBAR */
+    .navbar{
+      background:white;
+      padding:15px 40px;
+      display:flex;
+      justify-content:space-between;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .logo{
+      font-weight:600;
+      font-size:20px;
+      color:#2874f0;
+    }
+
+    /* LAYOUT */
+    .container{
+      width:90%;
+      margin:30px auto;
+      display:flex;
+      gap:30px;
+      align-items:flex-start;
+    }
+
+    .left{
+      flex:1;
+    }
+
+    /* BOX */
+    .box{
+      background:white;
+      padding:20px;
+      border-radius:8px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.08);
+      margin-bottom:20px;
+    }
+
+    .box-title{
+      font-weight:600;
+      margin-bottom:15px;
+      font-size:18px;
+    }
+
+    /* ORDER ITEMS */
+    .order-item{
+      display:flex;
+      gap:15px;
+      margin-bottom:15px;
+      padding-bottom:15px;
+      border-bottom:1px solid #eee;
+    }
+
+    .order-item img{
+      width:90px;
+      height:110px;
+      object-fit:cover;
+      border-radius:6px;
+      border:1px solid #eee;
+      background:#fafafa;
+    }
+
+    .order-info h3{
+      margin:0 0 8px;
+      font-size:18px;
+    }
+
+    .order-info p{
+      margin:4px 0;
+      font-size:14px;
+    }
+
+    /* ADDRESS */
+    input,textarea{
+      width:100%;
+      padding:10px;
+      margin:6px 0;
+      border:1px solid #ccc;
+      border-radius:4px;
+      font-family:'Poppins',sans-serif;
+      box-sizing:border-box;
+    }
+
+    textarea{
+      min-height:80px;
+      resize:vertical;
+    }
+
+    /* PAYMENT */
+    .pay-option{
+      margin:10px 0;
+      font-size:14px;
+    }
+
+    /* PRICE BOX */
+    .price-box{
+      width:300px;
+      background:white;
+      padding:20px;
+      border-radius:8px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.08);
+      position:sticky;
+      top:20px;
+    }
+
+    .price-row{
+      display:flex;
+      justify-content:space-between;
+      margin:10px 0;
+      font-size:15px;
+    }
+
+    .total{
+      font-weight:600;
+      font-size:18px;
+      border-top:1px solid #eee;
+      padding-top:10px;
+      margin-top:10px;
+    }
+
+    .pay-btn{
+      width:100%;
+      background:#fb641b;
+      color:white;
+      border:none;
+      padding:12px;
+      margin-top:15px;
+      border-radius:5px;
+      font-size:16px;
+      cursor:pointer;
+      font-family:'Poppins',sans-serif;
+    }
+
+    .pay-btn:hover{
+      background:#e65c00;
+    }
+
+    /* TRACKER */
+    .tracker{
+      display:flex;
+      gap:8px;
+      margin-top:8px;
+      flex-wrap:wrap;
+    }
+
+    .step{
+      padding:5px 10px;
+      border-radius:15px;
+      background:#ddd;
+      font-size:12px;
+    }
+
+    .step.active{
+      background:#28a745;
+      color:white;
+    }
+
+    /* EMPTY CART */
+    .empty-cart{
+      text-align:center;
+      padding:30px;
+      font-size:18px;
+      color:#555;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px){
+      .container{
+        flex-direction:column;
+      }
+
+      .price-box{
+        width:100%;
+        position:static;
+        box-sizing:border-box;
+      }
+
+      .order-item{
+        flex-direction:column;
+      }
+
+      .order-item img{
+        width:100%;
+        max-width:160px;
+        height:auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="navbar">
+    <div class="logo">E-Kart</div>
+    <div id="helloUser"></div>
+  </div>
+
+  <div class="container">
+
+    <div class="left">
+
+      <!-- ORDER SUMMARY -->
+      <div class="box">
+        <div class="box-title">Your Order Summary</div>
+        <div id="orderItems"></div>
+        <p><b>Total:</b> ₹<span id="total">0</span></p>
+      </div>
+
+      <!-- SHIPPING ADDRESS -->
+      <div class="box">
+        <div class="box-title">Shipping Address</div>
+
+        <input id="location" placeholder="Location">
+        <textarea id="address" placeholder="Full Address"></textarea>
+        <input id="email" type="email" placeholder="Email ID">
+      </div>
+
+      <!-- PAYMENT METHOD -->
+      <div class="box">
+        <div class="box-title">Payment Method</div>
+
+        <div class="pay-option">
+          <input type="radio" name="pay" value="Razorpay"> Razorpay (Online Payment)
+        </div>
+
+        <div class="pay-option">
+          <input type="radio" name="pay" value="Cash on Delivery"> Cash on Delivery
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PRICE DETAILS -->
+    <div class="price-box">
+      <h3>Price Details</h3>
+
+      <div class="price-row">
+        <span>Items Price</span>
+        <span id="itemsPrice">₹0</span>
+      </div>
+
+      <div class="price-row">
+        <span>Discount (10%)</span>
+        <span id="discount">-₹0</span>
+      </div>
+
+      <div class="price-row total">
+        <span>Total</span>
+        <span id="finalPrice">₹0</span>
+      </div>
+
+      <button class="pay-btn" onclick="payNow()">Proceed to Order</button>
+    </div>
+
+  </div>
+
+  <!-- Razorpay Script -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script>
+    /* USER */
+    const user = localStorage.getItem("loggedInUser");
+    if (user) {
+      document.getElementById("helloUser").innerText = "Hello, " + user;
+    }
+
+    /* LOAD CART ITEMS */
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const container = document.getElementById("orderItems");
+
+    let total = 0;
+
+    if (cart.length === 0) {
+      container.innerHTML = `<div class="empty-cart">Your cart is empty</div>`;
+    } else {
+      cart.forEach(item => {
+        let price = Number(item.price) || 0;
+        let qty = Number(item.quantity) || 1;
+        let itemTotal = price * qty;
+
+        total += itemTotal;
+
+        // FIX IMAGE PATH
+        let imagePath = item.image || "";
+        if (imagePath && !imagePath.startsWith("http") && !imagePath.startsWith("/uploads/")) {
+          imagePath = "/uploads/" + imagePath;
+        }
+
+        container.innerHTML += `
+          <div class="order-item">
+            <img src="${imagePath}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/90x110?text=No+Image'">
+            <div class="order-info">
+              <h3>${item.name || "Product"}</h3>
+              <p>Price: ₹${price}</p>
+              <p>Size: ${item.size || "N/A"}</p>
+              <p>Quantity: ${qty}</p>
+
+              <div class="tracker">
+                <div class="step active">Order Placed</div>
+                <div class="step">Packed</div>
+                <div class="step">Shipped</div>
+                <div class="step">Out for Delivery</div>
+                <div class="step">Delivered</div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    /* PRICE CALCULATION */
+    let discount = total * 0.10;
+    let final = total - discount;
+
+    document.getElementById("total").innerText = total.toFixed(0);
+    document.getElementById("itemsPrice").innerText = "₹" + total.toFixed(0);
+    document.getElementById("discount").innerText = "-₹" + discount.toFixed(0);
+    document.getElementById("finalPrice").innerText = "₹" + final.toFixed(0);
+
+    /* SAVE ORDER FUNCTION */
+    function saveOrder(paymentMethod, paymentId = "") {
+      let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+      // make image path correct in saved orders too
+      let fixedCart = cart.map(item => {
+        let imagePath = item.image || "";
+        if (imagePath && !imagePath.startsWith("http") && !imagePath.startsWith("/uploads/")) {
+          imagePath = "/uploads/" + imagePath;
+        }
+
+        return {
+          ...item,
+          image: imagePath
+        };
+      });
+
+      let newOrder = {
+        id: "ORD" + Math.floor(Math.random() * 1000000),
+        date: new Date().toLocaleDateString(),
+        status: "Order Placed",
+        paymentMethod: paymentMethod,
+        paymentId: paymentId,
+        shipping: {
+          location: document.getElementById("location").value.trim(),
+          address: document.getElementById("address").value.trim(),
+          email: document.getElementById("email").value.trim()
+        },
+        items: fixedCart,
+        total: final.toFixed(0)
+      };
+
+      orders.push(newOrder);
+
+      localStorage.setItem("orders", JSON.stringify(orders));
+      localStorage.removeItem("cart");
+    }
+
+    /* MAIN PAYMENT FUNCTION */
+    async function payNow() {
+      if (cart.length === 0) {
+        alert("Your cart is empty");
+        return;
+      }
+
+      const location = document.getElementById("location").value.trim();
+      const address = document.getElementById("address").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const selectedPayment = document.querySelector('input[name="pay"]:checked');
+
+      if (!location || !address || !email) {
+        alert("Please fill shipping address details");
+        return;
+      }
+
+      if (!selectedPayment) {
+        alert("Please select a payment method");
+        return;
+      }
+
+      /* CASH ON DELIVERY */
+      if (selectedPayment.value === "Cash on Delivery") {
+        saveOrder("Cash on Delivery");
+        alert("Order placed successfully with Cash on Delivery!");
+        window.location.href = "success.html";
+        return;
+      }
+
+      /* RAZORPAY PAYMENT */
+      if (selectedPayment.value === "Razorpay") {
+        try {
+          const response = await fetch("http://localhost:5000/create-order", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              amount: Math.round(final)
+            })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Failed to create Razorpay order");
+          }
+
+          const options = {
+  key: "rzp_test_SYtbclCX3pNW6T",  // ← paste your real Test Key ID here
+  amount: data.amount,
+  currency: data.currency,
+  name: "E-Kart",
+  description: "Order Payment",
+  order_id: data.id,
+  handler: function (response) {
+    saveOrder("Razorpay", response.razorpay_payment_id);
+    alert("Payment successful!");
+    window.location.href = "success.html";
+  },
+  prefill: {
+    name: user || "E-Kart User",
+    email: email
+  },
+  theme: {
+    color: "#2874f0"
+  }
+};
+
+          const rzp = new Razorpay(options);
+          rzp.open();
+
+        } catch (error) {
+          console.error("Razorpay error:", error);
+          alert("Payment failed: " + error.message);
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

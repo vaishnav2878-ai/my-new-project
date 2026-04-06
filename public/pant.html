@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pant - E-Kart</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+font-family:'Poppins',sans-serif;
+background:#f8f6f2;
+}
+
+.product-page{
+display:flex;
+gap:60px;
+padding:60px;
+align-items:center;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.product-img img{
+width:350px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.product-info{
+max-width:400px;
+}
+
+.product-info h2{
+color:#b88b5a;
+margin-bottom:10px;
+}
+
+.price{
+font-size:22px;
+font-weight:600;
+margin-bottom:20px;
+}
+
+.size-box{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+.size{
+border:1px solid #ccc;
+padding:8px 15px;
+border-radius:50px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.size:hover{
+background:#b88b5a;
+color:white;
+}
+
+.size.active{
+background:#b88b5a;
+color:white;
+border-color:#b88b5a;
+}
+
+.add-cart{
+background:#b88b5a;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:6px;
+cursor:pointer;
+font-weight:500;
+}
+
+.add-cart:hover{
+background:#a07445;
+}
+
+.wishlist{
+font-size:22px;
+margin-left:15px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="product-page">
+
+<!-- PRODUCT IMAGE -->
+<div class="product-img">
+<img id="productImage">
+</div>
+
+<!-- PRODUCT INFO -->
+<div class="product-info">
+
+<h2 id="productName"></h2>
+
+<p class="price" id="productPrice"></p>
+
+<p><b>Select Size</b></p>
+
+<div class="size-box">
+<div class="size" onclick="selectSize(this)">28</div>
+<div class="size" onclick="selectSize(this)">30</div>
+<div class="size" onclick="selectSize(this)">32</div>
+<div class="size" onclick="selectSize(this)">34</div>
+</div>
+
+<button class="add-cart" onclick="addToCart()">Add To Cart</button>
+<span class="wishlist" onclick="toggleHeart(this)">♡</span>
+
+</div>
+
+</div>
+
+<script>
+
+/* WISHLIST HEART */
+
+function toggleHeart(el){
+if(el.innerHTML === "♡"){
+el.innerHTML = "❤️";
+}else{
+el.innerHTML = "♡";
+}
+}
+
+/* SIZE SELECTION */
+
+let selectedSize = "";
+
+function selectSize(el){
+
+document.querySelectorAll(".size").forEach(size=>{
+size.classList.remove("active");
+});
+
+el.classList.add("active");
+
+selectedSize = el.innerText;
+
+}
+
+/* PRODUCT DATA */
+
+const pants = {
+
+pant1:{
+name:"Formal Pant",
+price:"₹899",
+image:"images/pant1.jpg"
+},
+
+pant2:{
+name:"Black Formal",
+price:"₹899",
+image:"images/pant2.jpg"
+},
+
+pant3:{
+name:"Jeans",
+price:"₹1099",
+image:"images/pant3.jpg"
+},
+
+pant4:{
+name:"Blue Jeans",
+price:"₹1099",
+image:"images/pant4.jpg"
+},
+
+pant5:{
+name:"Classic Jeans",
+price:"₹1099",
+image:"images/pant5.jpg"
+},
+
+pant6:{
+name:"Sky Blue Jeans",
+price:"₹1099",
+image:"images/pant6.jpg"
+},
+
+pant7:{
+name:"Green Cargo",
+price:"₹999",
+image:"images/pant7.jpg"
+},
+
+pant8:{
+name:"Cargo Jeans",
+price:"₹999",
+image:"images/pant8.jpg"
+},
+
+pant9:{
+name:"Cargos",
+price:"₹999",
+image:"images/pant9.jpg"
+}
+
+};
+
+/* GET PRODUCT FROM URL */
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+const pant = pants[id];
+
+if(pant){
+document.getElementById("productName").innerText = pant.name;
+document.getElementById("productPrice").innerText = pant.price;
+document.getElementById("productImage").src = pant.image;
+}
+
+/* ADD TO CART */
+
+function addToCart(){
+
+if(!selectedSize){
+alert("Please select a size");
+return;
+}
+
+const item = {
+name: pant.name,
+price: pant.price,
+image: pant.image,
+size: selectedSize
+};
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+cart.push(item);
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+alert("Item added to cart");
+
+}
+
+</script>
+
+</body>
+</html>
