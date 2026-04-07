@@ -155,7 +155,7 @@ document.getElementById("productName").innerText = product.name;
 document.getElementById("productPrice").innerText = "₹" + product.price;
 document.getElementById("productDescription").innerText = product.description || "";
 
-document.getElementById("productImage").src = "/uploads/" + product.image;
+document.getElementById("productImage").src = product.image;
 
 }
 catch(error){
@@ -206,7 +206,7 @@ const item = {
 id:product._id,
 name:product.name,
 price:product.price,
-image:"/uploads/"+product.image,
+image: product.image,
 size:selectedSize,
 quantity:1
 
