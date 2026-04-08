@@ -326,14 +326,8 @@ let allProducts = [];
 // Get correct image path
 function getImagePath(image) {
   if (!image) return "https://via.placeholder.com/300x250?text=No+Image";
-
-  if (image.startsWith("http")) return image;
-  if (image.startsWith("/uploads/")) return image;
-  if (image.startsWith("uploads/")) return "/" + image;
-
-  return "/uploads/" + image;
+  return image;
 }
-
 // Load products
 async function loadProducts() {
   try {
