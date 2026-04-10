@@ -404,8 +404,7 @@
       /* RAZORPAY PAYMENT */
       if (selectedPayment.value === "Razorpay") {
         try {
-          const response = await fetch("http://localhost:5000/create-order", {
-            method: "POST",
+    const response = await fetch("/create-order", {        method: "POST",
             headers: {
               "Content-Type": "application/json"
             },
