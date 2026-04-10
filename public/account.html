@@ -239,7 +239,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
 const email = document.getElementById("email").value;
 const password = document.getElementById("password").value;
 
-  const res = await fetch("/api/auth/register", {
+  const res = await fetch("/api/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -266,7 +266,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
   const username = document.getElementById("loginUser").value;
   const password = document.getElementById("loginPass").value;
 
-  const res = await fetch("/api/auth/login", {
+  const res = await fetch("/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
