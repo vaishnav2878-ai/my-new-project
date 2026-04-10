@@ -178,6 +178,17 @@
   </div>
 
   <script>
+    // ADMIN PASSWORD PROTECTION
+const adminPass = localStorage.getItem("adminAuth");
+if(adminPass !== "admin@2004"){
+  const entered = prompt("Enter Admin Password:");
+  if(entered !== "admin@2004"){
+    alert("Wrong password! Access denied.");
+    window.location.href = "/index.html";
+  } else {
+    localStorage.setItem("adminAuth", "admin@2004");
+  }
+}
     const form = document.getElementById("productForm");
     const message = document.getElementById("message");
 
